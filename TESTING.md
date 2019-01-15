@@ -74,7 +74,27 @@ Send the following request, substituting `CUSTOMER_ID` with the new customer id.
 
 ### Create an invoice provider
 
-TODO: document
+Create an invoice provider with the following request, and note the ID
+returned.
+
+    curl --request POST \
+      --url http://dev.billing.dynamicic.com/silver/providers/ \
+      --header 'authorization: Token $YOUR_AUTH_TOKEN' \
+      --header 'content-type: application/json' \
+      --data '{
+        "name": "Billing Provider",
+        "company": "Jumbo Company",
+        "invoice_series": "BPInvoiceSeries",
+        "flow": "invoice",
+        "email": "",
+        "address_1": "1 Mulberry Lane",
+        "address_2": "",
+        "city": "Pacoima",
+        "state": "CA",
+        "zip_code": "",
+        "country": "US",
+        "invoice_starting_number": 1
+      }'
 
 ### Create a (draft) Invoice
 
@@ -141,3 +161,53 @@ This should be running on a cron or [ celery task ][celery], but for now:
 3. run `./manage.py execute_transactions`
 
   [celery]: https://github.com/silverapp/silver/blob/0009ff4ca52dfc711e2f160ad90b449060fc4007/settings.py
+
+
+## Creating plans
+
+This assumes the following steps above have been completed:
+
+ - Creating a Customer
+ - Creating a Customer Payment Plan
+ - Creating an Invoice Provider
+
+It will require some new objects too
+
+### Create some product codes
+
+Run the following, noting the product codes.
+
+    curl --request POST \
+      --url http://dev.billing.dynamicic.com/silver/product-codes/ \
+      --header 'authorization: Token 16b73e0fb097ea6a6e7f92b65298301d07ca85ba' \
+      --header 'content-type: application/json' \
+      --data '{
+	    "value": "charcoal-latte"
+    }'
+
+### Create a Plan
+
+    curl --request POST \
+      --url http://dev.billing.dynamicic.com/silver/plans/ \
+      --header 'authorization: Token $YOUR_AUTH_TOKEN' \
+      --header 'content-type: application/json' \
+      --data '{
+        "name": "Monthly billing",
+        "interval": "day",
+        "interval_count": 30,
+        "amount": "25.0000",
+        "currency": "USD",
+        "trial_period_days": 15,
+        "generate_after": 0,
+        "enabled": true,
+        "private": false,
+        "product_code": "$PRODUCT_CODE",
+        "metered_features": [],
+        "provider": "http://dev.billing.dynamicic.com/silver/providers/$PROVIDER_ID/"
+    }'
+
+TODO: document metered feature creation
+
+### Processing plans
+
+TODO: document
