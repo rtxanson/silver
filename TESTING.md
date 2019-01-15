@@ -16,7 +16,7 @@ server-side processes to test integrations from the client side.
     * [Create some product codes](#create-some-product-codes)
     * [Create a Plan](#create-a-plan)
     * [Processing plans](#processing-plans)
-
+ * [TODO](#TODO)
 
 ## Creating an Auth Token
 
@@ -202,6 +202,8 @@ Run the following, noting the product codes.
 
 ### Create a Plan
 
+Note: this needs to include metered features
+
     curl --request POST \
       --url http://dev.billing.dynamicic.com/silver/plans/ \
       --header 'authorization: Token $YOUR_AUTH_TOKEN' \
@@ -217,12 +219,24 @@ Run the following, noting the product codes.
         "enabled": true,
         "private": false,
         "product_code": "$PRODUCT_CODE",
-        "metered_features": [],
+        "metered_features": [
+    		{
+        		"name": "Basic-Services-metering",
+        		"unit": "Thing",
+        		"price_per_unit": "5.0000",
+        		"included_units": "1.0000",
+        		"product_code": "basic-services"
+    		}
+		],
         "provider": "http://dev.billing.dynamicic.com/silver/providers/$PROVIDER_ID/"
-    }'
+    
 
-TODO: document metered feature creation
+## TODO
 
-### Processing plans
+* Subscribe a user to a plan or metered features, and activate the plan
+
+TODO:
+
+* Processing plans
 
 TODO: document
