@@ -3,6 +3,21 @@
 The intent of this document is to list the minimal steps to initiate
 server-side processes to test integrations from the client side.
 
+ * [Creating an Auth Token](#creating-an-auth-token)
+ * [Authenticating](#authenticating)
+ * [Triggering a payment to process](#triggering-a-payment-to-process)
+    * [Create a Customer](#create-a-customer)
+    * [Create a Customer Payment Method](#create-a-customer-payment-method)
+    * [Create an invoice provider](#create-an-invoice-provider)
+    * [Create a (draft) Invoice](#create-a-draft-invoice)
+    * [Set the invoice to Issued](#set-the-invoice-to-issued)
+    * [Run the payment process](#run-the-payment-process)
+ * [Creating plans](#creating-plans)
+    * [Create some product codes](#create-some-product-codes)
+    * [Create a Plan](#create-a-plan)
+    * [Processing plans](#processing-plans)
+
+
 ## Creating an Auth Token
 
 For now the application uses basic token authentication. In order to create or
