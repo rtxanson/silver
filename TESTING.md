@@ -1,7 +1,9 @@
 # Test processes
 
 The intent of this document is to list the minimal steps to initiate
-server-side processes to test integrations from the client side.
+server-side processes to test integrations from the client side. Using this
+document, you should be able to get a payment plan processing and issuing
+invoices as well as issue payments to the payment processor.
 
  * [Creating an Auth Token](#creating-an-auth-token)
  * [Authenticating](#authenticating)
@@ -12,7 +14,7 @@ server-side processes to test integrations from the client side.
     * [Create a (draft) Invoice](#create-a-draft-invoice)
     * [Set the invoice to Issued](#set-the-invoice-to-issued)
     * [Run the payment process](#run-the-payment-process)
- * [Creating plans](#creating-plans)
+ * [Creating and subscribing to plans](#creating-and-subscribing-to-plans)
     * [Create some product codes](#create-some-product-codes)
     * [Create a Plan](#create-a-plan)
     * [Processing plans](#processing-plans)
@@ -178,7 +180,7 @@ This should be running on a cron or [ celery task ][celery], but for now:
   [celery]: https://github.com/silverapp/silver/blob/0009ff4ca52dfc711e2f160ad90b449060fc4007/settings.py
 
 
-## Creating plans
+## Creating and subscribing to plans
 
 This assumes the following steps above have been completed:
 
